@@ -17,40 +17,58 @@
 <body>
   <div class="container">
     <header>
+      <div id="download">
+        <a class="btn btn-success" href="https://github.com/downloads/zephod/filter/filter.zip">Download .ZIP</a><br/>
+        <a class="btn btn-success" href="https://github.com/downloads/zephod/filter/filter.tar.gz">Download .TAR.GZ</a>
+      </div>
       <h1>filter <small>better than mv</small></h1>
-      <h2>> /usr/bin/filter</h2> 
+      <h2>$ /usr/bin/filter</h2> 
     </header>
     <section>
-    <h3>Features</h3>
-    <ul>
-      <li>No images, no external CSS</li>
-<li>No dependencies (jQuery is supported, but not required)</li>
-<li>Highly configurable</li>
-<li>Resolution independent</li>
-<li>Uses VML as fallback in old IEs</li>
-<li>Uses @keyframe animations, falling back to setTimeout()</li>
-<li>Works in all major browsers, including IE6</li>
-<li>MIT License</li>
-</ul>
+      <h3>The missing UNIX command</h3>
+      Filter uses <a href="http://en.wikipedia.org/wiki/Regular_expression">regular expressions</a> to rename files.
+      <pre style='color:#000020;'><b><span style='color:#007d45; '>$</span> filter report<span style='color:#308080; '>*</span> s<span style='color:#40015a; '>/</span><span style='color:#200080; font-weight:bold; '>.</span><span style='color:#200080; font-weight:bold; '>.</span>from<span style='color:#200080; font-weight:bold; '>.</span>chris<span style='color:#200080; font-weight:bold; '>.</span><span style='color:#40015a; '>/</span><span style='color:#40015a; '>/</span></b>
+report analysis <span style='color:#406080; '>(</span>from chris<span style='color:#406080; '>)</span><span style='color:#200080; font-weight:bold; '>.</span>doc     -<span style='color:#e34adc; '>></span>     report analysis<span style='color:#200080; font-weight:bold; '>.</span>doc
+report datasheet <span style='color:#406080; '>(</span>from chris<span style='color:#406080; '>)</span><span style='color:#200080; font-weight:bold; '>.</span>xls    -<span style='color:#e34adc; '>></span>     report datasheet<span style='color:#200080; font-weight:bold; '>.</span>xls
+report discussion <span style='color:#406080; '>(</span>from chris<span style='color:#406080; '>)</span><span style='color:#200080; font-weight:bold; '>.</span>doc   -<span style='color:#e34adc; '>></span>     report discussion<span style='color:#200080; font-weight:bold; '>.</span>doc
+Rename these files<span style='color:#308080; '>?</span> <span style='color:#308080; '>[</span><span style='color:#1060b6; '>y/N</span><span style='color:#308080; '>]</span>
+</pre>
+<pre style='color:#000020;'><b><span style='color:#007d45; '>$</span> filter <span style='color:#308080; '>*</span> <span style='color:#40015a; '>s/Episode./S01E0</span><span style='color:#40015a; '>/</span></b>
+Game of Thrones Episode 1<span style='color:#200080; font-weight:bold; '>.</span>mpg    -<span style='color:#e34adc; '>></span>     Game of Thrones S01E01<span style='color:#200080; font-weight:bold; '>.</span>mpg
+Game of Thrones Episode 2<span style='color:#200080; font-weight:bold; '>.</span>mpg    -<span style='color:#e34adc; '>></span>     Game of Thrones S01E02<span style='color:#200080; font-weight:bold; '>.</span>mpg
+Game of Thrones Episode 3<span style='color:#200080; font-weight:bold; '>.</span>mpg    -<span style='color:#e34adc; '>></span>     Game of Thrones S01E03<span style='color:#200080; font-weight:bold; '>.</span>mpg
+Rename these files<span style='color:#308080; '>?</span> <span style='color:#308080; '>[</span><span style='color:#1060b6; '>y/N</span><span style='color:#308080; '>]</span>
+</pre>
     </section>
     <section>
-    <h3>Also</h3>
-    <ul>
-      <li>No images, no external CSS</li>
-<li>No dependencies (jQuery is supported, but not required)</li>
-<li>Highly configurable</li>
-<li>Resolution independent</li>
-<li>Uses VML as fallback in old IEs</li>
-<li>Uses @keyframe animations, falling back to setTimeout()</li>
-<li>Works in all major browsers, including IE6</li>
-<li>MIT License</li>
-</ul>
+    <h3>Usage</h3>
+    <b>filter</b> wraps around GNU <a href="http://en.wikipedia.org/wiki/Sed">sed</a>, so it uses <b>s/search/replace</b> syntax. For example, to rename all <code><b>.txt</b></code> files, changing the <code><b>a</b></code>'s to <code><b>e</b></code>'s:
+    <pre style='color:#000020;'><b><span style='color:#007d45; '>$</span> filter <span style='color:#308080; '>*.txt</span> s<span style='color:#40015a; '>/</span><span style='color:#40015a; font-weight:bold; '>a</span><span style='color:#40015a; '>/</span><span style='color:#40015a; font-weight:bold; '>e</span><span style='color:#40015a; '>/</span></b></pre>
+    The syntax also supports <a href="http://www.regular-expressions.info/brackets.html">backreferences</a>, which are captured in brackets. Refer to groups with <code><b>\1</b></code>, <code><b>\2</b></code> etc.
+<pre style='color:#000020;'><span style='color:#007d45; '>$</span> filter <span style='color:#308080; '>*</span> <span style='color:#1060b6; '>"</span><span style='color:#200080; font-weight:bold; '>s</span><span style='color:#800000; '>/</span><span style='color:#1060b6; '>foo</span><span style='color:#0f69ff; '>\(</span><span style='color:#308080; '>.</span><span style='color:#0f69ff; '>\)</span><span style='color:#1060b6; '>bar</span><span style='color:#800000; '>/</span><span style='color:#1060b6; '>baz</span><span style='color:#0f69ff; '>\1</span><span style='color:#800000; '>/</span><span style='color:#1060b6; '>"</span>
+foo1bar<span style='color:#200080; font-weight:bold; '>.</span>txt    -<span style='color:#e34adc; '>></span>     baz1<span style='color:#200080; font-weight:bold; '>.</span>txt
+foo2bar<span style='color:#200080; font-weight:bold; '>.</span>txt    -<span style='color:#e34adc; '>></span>     baz2<span style='color:#200080; font-weight:bold; '>.</span>txt
+foo3bar<span style='color:#200080; font-weight:bold; '>.</span>txt    -<span style='color:#e34adc; '>></span>     baz3<span style='color:#200080; font-weight:bold; '>.</span>txt
+Rename these files<span style='color:#308080; '>?</span> <span style='color:#308080; '>[</span><span style='color:#1060b6; '>y/N</span><span style='color:#308080; '>]</span>
+</pre>
     </section>
+    <section>
+    <h3>Why?</h3>
+    <b>filter</b> is just a small script, but it solves a frustrating problem. Every time I'm in this situation I consult Google and come across gems like:
+    <ul style="font-family: monospace; font-weight: bold;">
+      <li>find . -exec echo `echo "{}" | sed 's/./foo/g'` \;</li>
+      <li>ls F00001-0708-*|sed 's/\(.\).\(.*\)/mv & \1\2/' | sh</li>
+      <li>for i in *; do ; mv "$i" "`echo $i | sed "s/\(.*\) - \(.*\) - \(.*\) - \(.*\).ogg/\1 - \4 - \3 - \2.ogg/"`"; done</li>
+    </ul>
+    I hope that you like my solution better.
+    </section>
+    <footer>
+    <h3>About Me</h3>
+    <img src="img/tom_rees.png" style="margin-left: 10px; float: right;"/>
+      See my other projects on <a href="http://zephod.com">my website</a>.<br/>
+      Report problems on the <a href="https://github.com/zephod/filter/issues">GitHub issue tracker</a>.<br/>
+      Also, <a href="http://twitter.com/zephod">follow me on Twitter</a>.<br/>
+    </footer>
   </div>
-  <footer>
-    <div class="container">
-      Footer
-    </div>
-  </footer>
 </body>
 </html>
