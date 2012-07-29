@@ -7,7 +7,7 @@ stat $FILTER >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
     # Filter script found
-    sudo ln -s $FILTER /usr/bin/filter
+    sudo cp $FILTER /usr/bin/filter
 else
     echo "Error: Could not locate script: $FILTER"
     exit 1

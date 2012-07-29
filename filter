@@ -1,28 +1,32 @@
 #!/bin/bash
 
-DRY=false
+# Quit if misued
+if [ $# -lt 2 ] ; then
+  echo "usage: filter target_files ... s/search/replace/"
+  exit
+fi
 
-# Parse the options
-while getopts "ds:" flag 
-do 
-    if [ $flag == "d" ] ; then
-        DRY=true
-    fi
-    #if [ $flag == "s" ] ; then
-    #    SEARCH=$OPTARG
-    #fi
-    #echo "$flag" $OPTIND $OPTARG 
+# Store the final argument (the SED filter)
+SED=${!#}
+# Remove the final argument from $@
+set -- "${@:1:$(($#-1))}"
+
+# Explain what we're going to do...
+for var
+do
+    echo $var$'\t'-\>  $'\t'`echo $var | sed "$SED"`
 done
 
-shift $((${OPTIND}-1))
-
-FILTER="${@: -1}"
-
-#echo DRY=$DRY
-#echo FILTER=$FILTER
-
-while [ $# -gt 1 ] ; do
-    echo mv \"$1\" \"`echo $1 | sed "$FILTER"`\"
-    shift
-done
-
+# Prompt the user
+read -r -p "Rename these files? [y/N] " response
+case $response in
+    [yY][eE][sS]|[yY]) 
+        # Commit changes
+        for var
+        do
+            mv "$var" "`echo $var | sed "$SED"`"
+        done
+        ;;
+    *)
+        ;;
+esac
