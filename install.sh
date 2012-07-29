@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## == Filter Installer ==
+## Simple script to copy filter into /usr/bin
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 FILTER=$DIR/filter
 
